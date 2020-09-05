@@ -15,6 +15,7 @@
                         <tr>
                             <th>Nom </th>
                             <th>Email</th>
+                            <th>Roles</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -24,9 +25,15 @@
                         <tr>
                         <td> {{ $user->name }}</td>  
                         <td> {{ $user->email }}</td> 
+                        <td> {{ implode (' , ',$user->roles()->get()->pluck('name')->toArray() )}}</td>
                         <td> 
                         <a href="{{ route('admin.users.edit',$user)}}"><button class="btn btn-primary">Editer</button></a>
-                        <a href="{{ route ('admin.users.destroy',$user) }}"><button class="btn btn-warning">Supprimer</button></a>
+
+                        <form class="d-inline" action="{{ route ('admin.users.destroy',$user)}}" method="Post">
+                        @csrf
+                        @method('DELETE')
+                        <button onclick="return confirm('Vous etes sur de vouloir faire cette action')" class="btn btn-warning">Supprimer</button></a>
+                        </form>
                         </td> 
 
                         </tr>
