@@ -77,6 +77,10 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <script src="//code.jquery.com/jquery.js"></script>
+        @include('flashy::message')
     </div>
+
 </body>
 </html>

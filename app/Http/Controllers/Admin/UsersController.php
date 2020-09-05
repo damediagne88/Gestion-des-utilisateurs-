@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use MercurySeries\Flashy\Flashy;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
 {
@@ -67,8 +69,16 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::all();
-        return view('admin.users.edit',compact('user','roles'));
+        if (Gate::denies('edit-user')) {
+            
+            return redirect()->route('admin.users.index');
+        }else{
+
+            $roles = Role::all();
+            return view('admin.users.edit',compact('user','roles'));
+        }
+        
+        
     }
 
     /**
@@ -93,9 +103,19 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->roles()->detach();
-        $user->delete();
+        if (Gate::denies('delete-user')) {
+            
+            Flashy::warning('Vous avez pas les priviléges pour acceder a cette page');
+            return redirect()->route('admin.users.index');
+        }
+        
+        else{
 
-        return back();
+            $user->roles()->detach();
+            $user->delete();
+
+            return back();
+        }
+        
     }
 }

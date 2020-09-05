@@ -18,6 +18,9 @@ class UsersTableSeeder extends Seeder
         User::truncate(); //nous permets de supprimer table Users
         DB::table('role_user')->truncate(); // supprimer les relations 
         
+
+        // ICI ON CREER DE NOUVEAU UTILISATEURS 
+
         $admin=User::create([
             'name' => 'admin',
             'email' => 'damediagnea@gmail.com',
@@ -36,6 +39,7 @@ class UsersTableSeeder extends Seeder
             'password' =>Hash::make('password'),
         ]);
 
+        // ICI ON RECUPERE LES ROLES 
         $adminRole = Role::where('name','admin')->first();
         $auteurRole = Role::where('name','auteur')->first();
         $utilisateurRole = Role::where('name','utilisateur')->first();

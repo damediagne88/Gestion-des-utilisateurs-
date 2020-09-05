@@ -5,6 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+            <script src="//code.jquery.com/jquery.js"></script>
+            @include('flashy::message')
                 <div class="card-header">Liste des Utilisateurs </div>
 
                 <div class="card-body">
@@ -27,6 +29,7 @@
                         <td> {{ $user->email }}</td> 
                         <td> {{ implode (' , ',$user->roles()->get()->pluck('name')->toArray() )}}</td>
                         <td> 
+                        
                         <a href="{{ route('admin.users.edit',$user)}}"><button class="btn btn-primary">Editer</button></a>
 
                         <form class="d-inline" action="{{ route ('admin.users.destroy',$user)}}" method="Post">
@@ -34,6 +37,8 @@
                         @method('DELETE')
                         <button onclick="return confirm('Vous etes sur de vouloir faire cette action')" class="btn btn-warning">Supprimer</button></a>
                         </form>
+
+                        
                         </td> 
 
                         </tr>

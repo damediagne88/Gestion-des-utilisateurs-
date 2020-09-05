@@ -42,4 +42,10 @@ class User extends Authenticatable
 
         return $this->belongsToMany(Role::class);
     }
+
+    // CETTE FONCTION NOUS PERMET DE VERIFIER SI NAME EGAL A ADMIN
+    public function isAdmin(){
+
+      return  $this->roles()->where('name','admin')->first();
+    }
 }
